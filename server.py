@@ -40,7 +40,7 @@ def get_time():
 
 @app.route("/")
 def hello():
-    return "ARAS"
+    return app.send_static_file('index.html')
 
 
 @app.route('/config', methods=['PUT'])
