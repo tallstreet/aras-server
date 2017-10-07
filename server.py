@@ -64,3 +64,13 @@ def config_get():
     cur.close()
     config = rv[0][0] if rv else None
     return json.loads(config)
+
+
+@app.route('/logs', methods=['GET'])
+@as_json
+def logs_get():
+    query = "select * from logs"
+    cur = get_db().execute(query, [])
+    logs = cur.fetchall()
+    cur.close()
+    return logs
