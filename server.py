@@ -69,7 +69,7 @@ def config_get():
 @app.route('/logs', methods=['GET'])
 @as_json
 def logs_get():
-    query = "select * from logs"
+    query = "select rowid, * from logs"
     cur = get_db().execute(query, [])
     logs = cur.fetchall()
     cur.close()
