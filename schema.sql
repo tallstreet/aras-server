@@ -12,6 +12,15 @@ CREATE TABLE logs (
     status boolean NOT NULL
 );
 
+
+CREATE TABLE rangers (
+    name text NOT NULL,
+    lat float NOT NULL,
+    lon float NOT NULL,
+    phone text NOT NULL
+);
+
+
 insert into config ('config') values ('{}');
 
 insert into logs values ("CAMERA ALERT","SN/31.5","1215 UTC","06/10/2017","UTM 37M 0417786 9671889"," LABELLED AS ""ARMED INTRUDER""",0),

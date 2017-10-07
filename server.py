@@ -69,8 +69,69 @@ def config_get():
 @app.route('/logs', methods=['GET'])
 @as_json
 def logs_get():
-    query = "select rowid, * from logs"
+    query = "select *, rowid from logs"
     cur = get_db().execute(query, [])
     logs = cur.fetchall()
     cur.close()
     return logs
+
+
+@app.route('/status', methods=['PATCH'])
+@as_json
+def state_update():
+    status = request.get_json()
+    cur = get_db().cursor()
+    query = "update logs set status = ? where rowid = ?"
+    cur.execute(query, [status["status"], status["rowid"]])
+    get_db().commit()
+    cur.close()
+    return True
+
+
+@app.route('/rangers', methods=['GET'])
+@as_json
+def rangers_get():
+    query = "select *, rowid from rangers"
+    cur = get_db().execute(query, [])
+    logs = cur.fetchall()
+    cur.close()
+    return logs
+
+
+@app.route('/ranger', methods=['PATCH'])
+@as_json
+def ranger_update():
+    ranger = request.get_json()
+    cur = get_db().cursor()
+    query = "update rangers set name = ?, lat = ?, lon = ?, phone = ? where rowid = ?"
+    cur.execute(query, [ranger["name"], ranger["lat"],
+                        ranger["lon"], ranger["phone"], ranger["rowid"]])
+    get_db().commit()
+    cur.close()
+    return True
+
+
+@app.route('/ranger', methods=['POST'])
+@as_json
+def ranger_add():
+    ranger = request.get_json()
+    print(ranger)
+    cur = get_db().cursor()
+    query = "insert into rangers values (?, ?, ?, ?)"
+    cur.execute(query, [ranger["name"], ranger["lat"],
+                        ranger["lon"], ranger["phone"]])
+    get_db().commit()
+    cur.close()
+    return True
+
+
+@app.route('/ranger', methods=['DELETE'])
+@as_json
+def ranger_delete():
+    ranger = request.get_json()
+    cur = get_db().cursor()
+    query = "delete from rangers where rowid = ?"
+    cur.execute(query, [ranger["rowid"]])
+    get_db().commit()
+    cur.close()
+    return True
