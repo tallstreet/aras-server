@@ -1,5 +1,12 @@
 CREATE TABLE config (
-    config text NOT NULL
+    config text NOT NULL,
+    overall boolean NOT NULL,
+    p1_sms boolean NOT NULL,
+    p2_sms boolean NOT NULL, 
+    p3_sms boolean NOT NULL,
+    p1_voip boolean NOT NULL,
+    p2_voip boolean NOT NULL,
+    p3_voip boolean NOT NULL
 );
 
 CREATE TABLE logs (
@@ -21,7 +28,7 @@ CREATE TABLE rangers (
 );
 
 
-insert into config ('config') values ('{}');
+insert into config values ('{}', 1, 0, 1, 0, 1, 0, 0);
 
 insert into logs values ("CAMERA ALERT","SN/31.5","1215 UTC","06/10/2017","UTM 37M 0417786 9671889"," LABELLED AS ""ARMED INTRUDER""",0),
 ("CAMERA ALERT","SN/31.2","1056 UTC","06/10/2017","UTM 37M 0417103 9689991"," LABELLED AS ""INTRUDER""",0),

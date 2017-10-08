@@ -48,8 +48,9 @@ def hello():
 def config_set():
     new_config = request.get_json()
     cur = get_db().cursor()
-    query = "update config set config = ?"
-    cur.execute(query, [json.dumps(new_config)])
+    query = "update config set config = ?, overall = ?, p1_sms = ?, p2_sms = ?, p3_sms = ?, p1_voip = ?, p2_voip = ?, p3_voip = ?"
+    cur.execute(query, [json.dumps(new_config), new_config['overall'], new_config['p1_sms'], new_config['p2_sms'],
+                        new_config['p3_sms'], new_config['p1_voip'], new_config['p2_voip'], new_config['p3_voip']])
     get_db().commit()
     cur.close()
     return new_config
